@@ -5,7 +5,7 @@ import { Check } from "@gravity-ui/icons";
 import { Button, Description, FieldError, Form, Input, Label, TextField } from "@heroui/react";
 
 
-const SignupPage = () => {
+const SigninPage = () => {
 
     const onSubmit = async(e) => {
         e.preventDefault();
@@ -14,8 +14,7 @@ const SignupPage = () => {
         console.log("userData:", userData);
 
 
-        const { data, error } = await authClient.signUp.email({
-            name: userData.name,
+        const { data, error } = await authClient.signIn.email({
             email: userData.email,
             password: userData.password,
             callbackURL: "/",
@@ -36,20 +35,6 @@ const SignupPage = () => {
     return (
         <div className="flex min-h-screen items-center justify-center">
             <Form className="flex w-96 flex-col gap-4" onSubmit={onSubmit}>
-                <TextField
-                    isRequired
-                    name="name"
-                    validate={(value) => {
-                        if (value.length < 3) {
-                            return "Name must be at least 3 characters";
-                        }
-                        return null;
-                    }}
-                >
-                    <Label>Name</Label>
-                    <Input name="name" placeholder="John Doe" />
-                    <FieldError />
-                </TextField>
 
                 <TextField
                     isRequired
@@ -103,4 +88,4 @@ const SignupPage = () => {
     );
 };
 
-export default SignupPage;
+export default SigninPage;
