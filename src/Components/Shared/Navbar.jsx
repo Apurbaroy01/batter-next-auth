@@ -3,9 +3,16 @@
 import { signOut, useSession } from "@/app/lib/auth-client";
 import { Button } from "@heroui/react";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
 const Navbar = () => {
     const { data, isPending, error } = useSession();
+
+    const handleSignOut = async () => {
+        await signOut();
+        redirect("/");
+    };
+
     if (isPending) {
         return <div>Loading...</div>;
 
@@ -28,12 +35,13 @@ const Navbar = () => {
                 <ul className="flex items-center gap-4">
                     <li><Link href="#">Features</Link></li>
                     <li><Link href="#">Pricing</Link></li>
+                    <li><Link href="/dashboard">Dashboard</Link></li>
                 </ul>
                 <div>
                     {user ? (
                         <div className="flex items-center gap-4">
                             <span>Welcome, {user.name || user.email}!</span>
-                            <Button onClick={()=>signOut()}>Sign Out</Button>
+                            <Button onClick={handleSignOut}>Sign Out</Button>
                         </div> 
                     ) : (
                         <div className="flex items-center gap-4">
