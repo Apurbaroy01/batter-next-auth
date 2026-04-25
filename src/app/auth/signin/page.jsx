@@ -17,17 +17,19 @@ const SigninPage = () => {
         const { data, error } = await authClient.signIn.email({
             email: userData.email,
             password: userData.password,
+            rememberMe: true,
             callbackURL: "/",
         });
 
         if (error) {
-            console.error("Signup error:", error);
-            alert("Signup failed: " + error.message);
+            console.error("sign in error:", error);
+            alert("Sign in failed: " + error.message);
         }
         if (data) {
-            console.log("Signup successful:", data);
-            alert("Signup successful! Please check your email to verify your account.");
+            console.log("Sign in successful:", data);
+            alert("Sign in successful! You are now logged in.");
         }
+        
     }
 
 
